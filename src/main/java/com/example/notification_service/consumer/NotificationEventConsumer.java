@@ -27,11 +27,13 @@ public class NotificationEventConsumer {
     @Scheduled(fixedDelay = 500)
     public void consumeEvents() {
         try {
+            log.info("Polling notification queue...");
             String eventJson = redisTemplate.opsForList().leftPop(SAGA_QUEUE , 1 , TimeUnit.SECONDS);
             if (eventJson != null) {
                 SagaEvent sagaEvent = objectMapper.readValue(eventJson, SagaEvent.class);
 
                 handleEvent(sagaEvent);
+                log.info("Consumed event: {}", eventJson);
             }
         } catch (Exception e) {
             log.error("Error in notification consumer: {}", e.getMessage());

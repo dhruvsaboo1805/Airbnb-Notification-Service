@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
+import software.amazon.awssdk.services.sns.model.PublishResponse;
 
 @Service
 public class SnsService {
@@ -30,6 +31,9 @@ public class SnsService {
                 .message(message)
                 .build();
 
-        snsClient.publish(request);
+//        snsClient.publish(request);
+        PublishResponse response = snsClient.publish(request);
+
+        System.out.println("SNS MESSAGE SENT: " + response.messageId());
     }
 }

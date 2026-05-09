@@ -1,0 +1,31 @@
+version: '3.8'
+
+networks:
+  default:
+    external:
+      name: airbnb-network
+
+services:
+
+  notification-service:
+    image: 18052003/notification-service:1.0
+    container_name: notification-service
+
+    env_file:
+      - .env
+
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
+
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+
+      SAGA_QUEUE_VALUE: ${SAGA_QUEUE_VALUE}
+
+      AWS_REGION: ${AWS_REGION}
+      AWS_SNS_TOPIC_ARN: ${AWS_SNS_TOPIC_ARN}
+
+    ports:
+      - "8082:8082"
+
+    restart: always
