@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class NotificationEventConsumer {
 
-    @Value("${SAGA_QUEUE_VALUE}")
+    @Value("${NOTIFICATION_SAGA_QUEUE_VALUE}")
     private String SAGA_QUEUE;
 
     private final RedisTemplate<String, String> redisTemplate;
